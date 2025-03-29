@@ -47,18 +47,18 @@ const FaqItem = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300">
-      <button 
-        className="w-full px-6 py-5 flex justify-between items-center text-left bg-white hover:bg-gray-50 transition-colors duration-300"
-        onClick={() => setIsOpen(!isOpen)}
-      >
+    <div 
+      className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer"
+      onClick={() => setIsOpen(!isOpen)}
+    >
+      <div className="w-full px-6 py-5 flex justify-between items-center text-left bg-white hover:bg-gray-50 transition-colors duration-300">
         <span className="text-gray-900 font-semibold text-sm sm:text-base md:text-lg pr-4">{question}</span>
         <span className={`text-[#1AC0D8] transform transition-transform duration-500 ease-in-out ${isOpen ? 'rotate-180' : ''}`}>
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
             <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
           </svg>
         </span>
-      </button>
+      </div>
       <div 
         className={`transform transition-all duration-500 ease-in-out ${
           isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'

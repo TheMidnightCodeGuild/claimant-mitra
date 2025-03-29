@@ -34,10 +34,10 @@ const About = () => {
           </div>
 
           {/* Image */}
-          <div className="w-full lg:w-1/2 mt-8 lg:mt-0">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+          <div className="w-full lg:w-[520px] mx-auto mt-8 lg:mt-0">
+            <div className="relative rounded-2xl">
               <Image
-                src="/images/about.webp"
+                src="/images/about.png"
                 alt="Insurance Claims Assistance"
                 width={600}
                 height={400}

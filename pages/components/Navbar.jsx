@@ -78,7 +78,7 @@ const Navbar = () => {
                 onMouseLeave={() => setServicesDropdown(false)}
               >
                 <Link
-                  href="/services/mis-selling"
+                  href="/services/Misselling-of-insurance-policy"
                   className="relative block py-2 px-4 hover:bg-[#1AC0D8] hover:text-white rounded-lg text-gray-900 font-medium text-sm transition-colors"
                 >
                   Mis-selling of Insurance Policy
@@ -207,7 +207,7 @@ const Navbar = () => {
             </Link>
 
             <Link
-              href="/contact"
+              href="/components/Register-complaint"
               className="relative inline-block border-black border-2 px-4 py-3 font-semibold text-white bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg shadow-lg hover:shadow-xl overflow-hidden group"
             >
               <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-80 group-hover:h-80 opacity-10"></span>

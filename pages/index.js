@@ -7,6 +7,7 @@ import About from './components/About'
 import Services from './components/Services'
 import Faqs from './components/Faqs'
 import Footer from './components/Footer'
+import Choose from './components/Choose'
 const index = () => {
   return (
     <>
@@ -17,6 +18,7 @@ const index = () => {
      <About/>
     <Second/>
     <Services/>
+    <Choose/>
     <Faqs/>
     <Footer/>
     </>
