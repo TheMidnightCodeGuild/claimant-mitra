@@ -14,12 +14,11 @@ const Navbar = () => {
           {/* Logo on left side */}
           <Link href="/" className="flex items-center justify-center">
             <Image
-              className="w-36 md:w-48 h-auto"
               src="/images/logo.png"
-              alt="logo"
-              width={60}
-              height={60}
-              quality={100}
+              alt="Insurance Samadhan"
+              width={130}
+              height={45}
+              className="w-auto h-auto "
               priority
             />
           </Link>
@@ -34,14 +33,14 @@ const Navbar = () => {
               <span className="absolute bottom-0 left-0 w-full h-[3px] bg-[#1AC0D8] scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
             </Link>
 
-            <Link
+            {/* <Link
               href="#About"
               className="relative rounded-full py-1 transition-colors group"
             >
               About Us
               <span className="absolute bottom-0 left-0 w-full h-[3px] bg-[#1AC0D8] scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
-            </Link>
-            
+            </Link> */}
+
             {/* Services Dropdown */}
             <div className="relative inline-flex text-gray-800">
               <button
@@ -117,7 +116,7 @@ const Navbar = () => {
             </div>
 
             {/* Insurance Complaints Dropdown */}
-            <div className="relative inline-flex text-gray-800">
+            {/* <div className="relative inline-flex text-gray-800">
               <button
                 type="button"
                 className="relative flex items-center gap-2 rounded-full py-1"
@@ -188,7 +187,7 @@ const Navbar = () => {
                   Marine Insurance
                 </Link>
               </div>
-            </div>
+            </div> */}
 
             <Link
               href="/partnership"
@@ -206,26 +205,40 @@ const Navbar = () => {
               <span className="absolute bottom-0 left-0 w-full h-[3px] bg-[#1AC0D8] scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
             </Link>
 
+        
             <Link
-              href="/components/Register-complaint"
-              className="relative inline-block border-black border-2 px-4 py-3 font-semibold text-white bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg shadow-lg hover:shadow-xl overflow-hidden group"
-            >
-              <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-80 group-hover:h-80 opacity-10"></span>
-              <span className="relative flex items-center">
-                Register a complaint
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </span>
-            </Link>
-            <Link
-              href="/login"
+              href="https://partnerportal.claimantmitra.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="relative inline-block px-4 py-2 font-medium group"
             >
               <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
               <span className="absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-[#1AC0D8]"></span>
               <span className="relative text-black group-hover:text-white">
-                Login
+                Partner Login
+              </span>
+            </Link>
+            <Link
+              href="/components/Register-complaint"
+              className="relative inline-block  border-2 px-4 py-3 font-semibold text-white bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg shadow-lg hover:shadow-xl overflow-hidden group"
+            >
+              <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-80 group-hover:h-80 opacity-10"></span>
+              <span className="relative flex items-center">
+                Register a complaint
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 ml-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
               </span>
             </Link>
           </div>

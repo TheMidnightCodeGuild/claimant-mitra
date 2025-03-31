@@ -8,9 +8,12 @@ import Services from './components/Services'
 import Faqs from './components/Faqs'
 import Footer from './components/Footer'
 import Choose from './components/Choose'
+import Why from './components/Why'
+
 const index = () => {
   return (
     <>
+    
      <Navbar/>
     <Landing/>
 
@@ -18,6 +21,7 @@ const index = () => {
      <About/>
     <Second/>
     <Services/>
+    <Why/>
     <Choose/>
     <Faqs/>
     <Footer/>

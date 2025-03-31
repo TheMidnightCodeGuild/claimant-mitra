@@ -2,80 +2,128 @@ import React, { useState } from 'react';
 import Navbar from './Navbar';
 
 const RegisterComplaint = () => {
-  const [selectedInsurance, setSelectedInsurance] = useState('');
-  const [complaintTypes, setComplaintTypes] = useState([]);
-  const [policyTypes, setPolicyTypes] = useState([]);
+  // Form state
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phone: '',
-    message: ''
+    message: '',
+    insuranceType: '',
+    complaintType: '',
+    policyType: ''
   });
 
-  const handleInsuranceChange = (e) => {
-    const insurance = e.target.value;
-    setSelectedInsurance(insurance);
-    
-    switch(insurance) {
-      case 'Health Insurance':
-        setComplaintTypes(['Claim Short-settled', 'Claim Rejected', 'Claim Delayed', 'Policy Related Issues']);
-        setPolicyTypes([]);
-        break;
-      case 'Life Insurance':
-        setComplaintTypes(['Death Claim Delayed', 'Death Claim Rejected', 'Misselling & Fraud sales', 'Policy Servicing']);
-        setPolicyTypes([]);
-        break;
-      case 'General Insurance': 
-        setComplaintTypes(['Claim Short-settled', 'Claim Rejected', 'Claim Delayed', 'Policy Cancellation']);
-        setPolicyTypes(['Travel', 'Fidelity', 'Marine', 'Property', 'Fire', 'Home Insurance', 'Personal Accident', 'Critical Illness', 'PMSBY Claim', 'Loan Protection Policy', 'Death Claim', 'Others']);
-        break;
-      case 'Motor Insurance':
-        setComplaintTypes(['Motor Accident Insurance Claim', 'Motor Theft Claim']);
-        setPolicyTypes([]);
-        break;
-      default:
-        setComplaintTypes([]);
-        setPolicyTypes([]);
+  // UI state
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [complaintTypes, setComplaintTypes] = useState([]);
+  const [policyTypes, setPolicyTypes] = useState([]);
+
+  // Insurance type options mapping
+  const insuranceOptions = {
+    'Health Insurance': {
+      complaints: ['Claim Short-settled', 'Claim Rejected', 'Claim Delayed', 'Policy Related Issues'],
+      policies: []
+    },
+    'Life Insurance': {
+      complaints: ['Death Claim Delayed', 'Death Claim Rejected', 'Misselling & Fraud sales', 'Policy Servicing'],
+      policies: []
+    },
+    'General Insurance': {
+      complaints: ['Claim Short-settled', 'Claim Rejected', 'Claim Delayed', 'Policy Cancellation'],
+      policies: ['Travel', 'Fidelity', 'Marine', 'Property', 'Fire', 'Home Insurance', 'Personal Accident', 'Critical Illness', 'PMSBY Claim', 'Loan Protection Policy', 'Death Claim', 'Others']
+    },
+    'Motor Insurance': {
+      complaints: ['Motor Accident Insurance Claim', 'Motor Theft Claim'],
+      policies: []
     }
   };
 
+  // Handle form input changes
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [id]: value
     }));
+    setError('');
+
+    // Handle insurance type change
+    if (id === 'insuranceType') {
+      const selectedInsurance = insuranceOptions[value];
+      if (selectedInsurance) {
+        setComplaintTypes(selectedInsurance.complaints);
+        setPolicyTypes(selectedInsurance.policies);
+        setFormData(prev => ({
+          ...prev,
+          complaintType: '',
+          policyType: ''
+        }));
+      } else {
+        setComplaintTypes([]);
+        setPolicyTypes([]);
+      }
+    }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // Form validation
+  const validateForm = () => {
+    const { fullName, email, phone, insuranceType, complaintType } = formData;
     
-    if (!formData.fullName || !formData.email || !formData.phone || !selectedInsurance) {
-      document.getElementById('errmsg').innerHTML = 
-        '<p class="text-red-500">Please fill all required fields</p>';
-      return;
+    if (!fullName || !email || !phone || !insuranceType || !complaintType) {
+      setError('Please fill all required fields');
+      return false;
     }
 
+    if (insuranceType === 'General Insurance' && !formData.policyType) {
+      setError('Please select a policy type');
+      return false;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError('Please enter a valid email address');
+      return false;
+    }
+
+    if (!/^\d{10}$/.test(phone)) {
+      setError('Please enter a valid 10-digit phone number');
+      return false;
+    }
+
+    return true;
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+    
+    if (!validateForm()) return;
+
     try {
-      document.getElementById('success_msg').innerHTML = 
-        '<p class="text-green-500 mb-3">Complaint registered successfully!</p>';
+      // API call would go here
+      setSuccess('Complaint registered successfully!');
       
+      // Reset form
       setFormData({
         fullName: '',
         email: '',
         phone: '',
-        message: ''
+        message: '',
+        insuranceType: '',
+        complaintType: '',
+        policyType: ''
       });
-      setSelectedInsurance('');
       setComplaintTypes([]);
       setPolicyTypes([]);
       
     } catch (error) {
-      document.getElementById('errmsg').innerHTML = 
-        '<p class="text-red-500">Something went wrong. Please try again.</p>';
+      setError('Something went wrong. Please try again.');
     }
   };
 
+  // CSS classes
   const inputClasses = "text-body-color border-[f0f0f0] focus:border-siddhi2 w-full rounded border py-2 px-[14px] text-sm outline-none focus-visible:shadow-none";
   const selectClasses = "select appearance-none text-gray-600 text-sm font-normal bg-white border-coolGray-200 shadow-input text-body-color border-[f0f0f0] focus:border-gray-800 w-full rounded border py-2 px-[16px] outline-none focus-visible:shadow-none";
 
@@ -106,30 +154,34 @@ const RegisterComplaint = () => {
                       <input 
                         id="fullName"
                         type="text"
-                        placeholder="Your Name"
+                        placeholder="Your Name *"
                         value={formData.fullName}
                         onChange={handleInputChange}
                         className={inputClasses}
+                        required
                       />
                     </div>
                     <div className="mb-4">
                       <input 
                         id="email"
                         type="email"
-                        placeholder="Your Email"
+                        placeholder="Your Email *"
                         value={formData.email}
                         onChange={handleInputChange}
                         className={inputClasses}
+                        required
                       />
                     </div>
                     <div className="mb-4">
                       <input 
                         id="phone"
                         type="tel"
-                        placeholder="Your Phone"
+                        placeholder="Your Phone * (10 digits)"
                         value={formData.phone}
                         onChange={handleInputChange}
                         className={inputClasses}
+                        required
+                        pattern="[0-9]{10}"
                       />
                     </div>
 
@@ -138,26 +190,29 @@ const RegisterComplaint = () => {
                         <select 
                           id="insuranceType"
                           className={selectClasses}
-                          onChange={handleInsuranceChange}
-                          value={selectedInsurance}
+                          onChange={handleInputChange}
+                          value={formData.insuranceType}
+                          required
                         >
-                          <option value="" disabled>Type of Insurance Complaint</option>
-                          <option value="Health Insurance">Health Insurance</option>
-                          <option value="Life Insurance">Life Insurance</option>
-                          <option value="General Insurance">General Insurance</option>
-                          <option value="Motor Insurance">Motor Insurance</option>
+                          <option value="">Type of Insurance Complaint *</option>
+                          {Object.keys(insuranceOptions).map(type => (
+                            <option key={type} value={type}>{type}</option>
+                          ))}
                         </select>
                       </div>
                     </div>
 
-                    {selectedInsurance === 'General Insurance' && (
+                    {formData.insuranceType === 'General Insurance' && (
                       <div className="mb-4">
                         <div className="relative">
                           <select 
                             id="policyType"
                             className={selectClasses}
+                            onChange={handleInputChange}
+                            value={formData.policyType}
+                            required
                           >
-                            <option value="" disabled>Select Policy Type</option>
+                            <option value="">Select Policy Type *</option>
                             {policyTypes.map((type, index) => (
                               <option key={index} value={type}>{type}</option>
                             ))}
@@ -166,14 +221,17 @@ const RegisterComplaint = () => {
                       </div>
                     )}
 
-                    {selectedInsurance && (
+                    {formData.insuranceType && (
                       <div className="mb-4">
                         <div className="relative">
                           <select 
                             id="complaintType"
                             className={selectClasses}
+                            onChange={handleInputChange}
+                            value={formData.complaintType}
+                            required
                           >
-                            <option value="" disabled>Select Complaint Type</option>
+                            <option value="">Select Complaint Type *</option>
                             {complaintTypes.map((type, index) => (
                               <option key={index} value={type}>{type}</option>
                             ))}
@@ -193,8 +251,8 @@ const RegisterComplaint = () => {
                       />
                     </div>
                     
-                    <div id="errmsg" className="mb-2"></div>
-                    <div id="success_msg" className="mb-2"></div>
+                    {error && <div className="text-red-500 mb-2">{error}</div>}
+                    {success && <div className="text-green-500 mb-2">{success}</div>}
                     
                     <div className="flex justify-center mt-4">
                       <button

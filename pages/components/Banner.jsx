@@ -35,19 +35,19 @@ const Banner = () => {
       <Marquee
         gradient={false}
         speed={40}
-        className="bg-[#1AC0D8] py-5 mb-2"
+        className="bg-[#1AC0D8] py-3 sm:py-4 md:py-5 mb-2"
         pauseOnHover={true}
         paused={isPaused}
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
-        <div className="flex space-x-16 mx-8">
+        <div className="flex space-x-8 sm:space-x-12 md:space-x-16 mx-4 sm:mx-6 md:mx-8">
           {promises.map((promise, index) => (
             <div key={index} className="flex flex-col items-center">
-              <span className="text-white text-lg font-bold whitespace-nowrap">
+              <span className="text-white text-sm sm:text-base md:text-lg font-bold whitespace-nowrap">
                 {promise.title}
               </span>
-              <span className="text-white/80 text-sm mt-1 whitespace-nowrap">
+              <span className="text-white/80 text-xs sm:text-sm mt-0.5 sm:mt-1 whitespace-nowrap">
                 {promise.description}
               </span>
             </div>

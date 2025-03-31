@@ -5,7 +5,7 @@ const Choose = () => {
     <>
  
       <div 
-        className="bg-white bg-cover bg-center bg-fixed"
+        className="bg-white bg-cover bg-center bg-fixed mt-20 rounded-3xl"
         style={{backgroundImage: "url('/images/choosebg.png')"}}
       >
         {/* Approach */}
@@ -119,7 +119,7 @@ const Choose = () => {
                 <div className="grow pt-0.5 pb-8">
                   <p className="text-sm md:text-base text-gray-900">
                     <span className="text-gray-900 font-semibold">Registration:</span>
-                    We do not charge anything upfront other than a one-time registration fee of ₹500 only after case acceptance.
+                    There is no registration fee or any upfront charges; you only pay after you get your claim.
                   </p>
                 </div>
                 {/* End Right Content */}
@@ -142,7 +142,7 @@ const Choose = () => {
                 <div className="grow pt-0.5 pb-8">
                   <p className="text-sm md:text-base text-gray-900">
                     <span className="text-gray-900 font-semibold">Complaint Resolution:</span>
-                    Upon successful resolution of your insurance complaint, we charge a success fee of 15% + GST.
+                    Upon successful resolution of your insurance complaint, we charge a success fee of 20%.
                   </p>
                 </div>
                 {/* End Right Content */}
