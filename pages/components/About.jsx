@@ -33,7 +33,7 @@ const About = () => {
                 src="/images/about.png"
                 alt="Insurance Claims Assistance"
                 fill
-                className="object-contain"
+                className="object-contain border-4 border-[#1AC0D8]"
                 priority
               />
             </div>

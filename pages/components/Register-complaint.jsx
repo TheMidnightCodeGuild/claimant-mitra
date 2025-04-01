@@ -124,13 +124,13 @@ const RegisterComplaint = () => {
   };
 
   // CSS classes
-  const inputClasses = "text-body-color border-[f0f0f0] focus:border-siddhi2 w-full rounded border py-2 px-[14px] text-sm outline-none focus-visible:shadow-none";
+  const inputClasses = "text-body-color border-[f0f0f0]  w-full rounded border py-2 px-[14px] text-sm outline-none focus-visible:shadow-none";
   const selectClasses = "select appearance-none text-gray-600 text-sm font-normal bg-white border-coolGray-200 shadow-input text-body-color border-[f0f0f0] focus:border-gray-800 w-full rounded border py-2 px-[16px] outline-none focus-visible:shadow-none";
 
   return (
     <>
       <Navbar/>
-      <section className="lg:h-[600px] mt-10 p-10 relative bg-[url('/images/banner.png')] bg-[#101828] bg-cover object-cover overflow-x-hidden overflow-y-hidden">
+      <section className="lg:h-screen mt-10 p-10 relative bg-[url('/images/banner.png')] bg-[#101828] bg-cover object-cover overflow-x-hidden overflow-y-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="px-4 relative z-[5] py-6 md:py-4 md:px-12 text-gray-800 text-center lg:text-left">
           <div className="lg:max-w-[1300px] w-full mx-auto">
@@ -142,9 +142,7 @@ const RegisterComplaint = () => {
                 <p className="text-white text-left md:w-[75%] text-base lg:text-[15px] font-light mb-3 md:mb-8">
                   We are dedicated to helping you resolve your insurance-related concerns. Our complaint registration portal ensures your voice is heard and your issues are addressed promptly and effectively.
                 </p>
-                <div className="justify-start text-left mt-7">
-                  <a href="#complaint-form" className="bg-siddhi1 py-3 px-5 rounded-lg text-white font-medium mb-4 md:mb-6">Get Started</a>
-                </div>
+            
               </div>
 
               <div className="mb-12 lg:mb-0 mt-10 md:mt-8 lg:w-[550px]">

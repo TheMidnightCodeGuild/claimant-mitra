@@ -19,10 +19,8 @@ const Why = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {/* Card 1 */}
           <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border border-[#17BED4]">
-            <div className="bg-blue-100 rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center mb-3 sm:mb-4">
-              <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+            <div className="w-10 h-10 sm:w-16 sm:h-12 flex items-center justify-center mb-3 sm:mb-4">
+            <Image src="/images/Expertise&Experience.png" alt="Expertise & Experience"  width={50} height={50} />
             </div>
             <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Expertise & Experience</h3>
             <p className="text-sm sm:text-base text-gray-600">
@@ -32,10 +30,8 @@ const Why = () => {
 
           {/* Card 2 */}
           <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border border-[#17BED4]">
-            <div className="bg-blue-100 rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center mb-3 sm:mb-4">
-              <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+          <div className="w-10 h-10 sm:w-16 sm:h-12 flex items-center justify-center mb-3 sm:mb-4">
+            <Image src="/images/Quickresolution.png" alt="Expertise & Experience"  width={50} height={50} />
             </div>
             <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Quick Resolution</h3>
             <p className="text-sm sm:text-base text-gray-600">
@@ -45,10 +41,8 @@ const Why = () => {
 
           {/* Card 3 */}
           <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border border-[#17BED4]">
-            <div className="bg-blue-100 rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center mb-3 sm:mb-4">
-              <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
-              </svg>
+          <div className="w-10 h-10 sm:w-16 sm:h-12 flex items-center justify-center mb-3 sm:mb-4">
+            <Image src="/images/Dedicatedsupport.png" alt="Expertise & Experience"  width={50} height={50} />
             </div>
             <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Dedicated Support</h3>
             <p className="text-sm sm:text-base text-gray-600">
@@ -58,10 +52,8 @@ const Why = () => {
 
           {/* Card 4 */}
           <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border border-[#17BED4]">
-            <div className="bg-blue-100 rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center mb-3 sm:mb-4">
-              <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
+          <div className="w-10 h-10 sm:w-16 sm:h-12 flex items-center justify-center mb-3 sm:mb-4">
+            <Image src="/images/secure.png" alt="Expertise & Experience"  width={50} height={50} />
             </div>
             <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">100% Secure Process</h3>
             <p className="text-sm sm:text-base text-gray-600">
@@ -71,10 +63,8 @@ const Why = () => {
 
           {/* Card 5 */}
           <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border border-[#17BED4]">
-            <div className="bg-blue-100 rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center mb-3 sm:mb-4">
-              <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+          <div className="w-10 h-10 sm:w-16 sm:h-12 flex items-center justify-center mb-3 sm:mb-4">
+            <Image src="/images/hidden.png" alt="Expertise & Experience"  width={50} height={50} />
             </div>
             <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">No Hidden Fees</h3>
             <p className="text-sm sm:text-base text-gray-600">
@@ -84,10 +74,8 @@ const Why = () => {
 
           {/* Card 6 */}
           <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border border-[#17BED4]">
-            <div className="bg-blue-100 rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center mb-3 sm:mb-4">
-              <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-              </svg>
+          <div className="w-10 h-10 sm:w-16 sm:h-12 flex items-center justify-center mb-3 sm:mb-4">
+            <Image src="/images/success.png" alt="Expertise & Experience"  width={50} height={50} />
             </div>
             <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">High Success Rate</h3>
             <p className="text-sm sm:text-base text-gray-600">

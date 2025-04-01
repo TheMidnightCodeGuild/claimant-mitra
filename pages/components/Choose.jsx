@@ -28,8 +28,8 @@ const Choose = () => {
             <div>
               {/* Heading */}
               <div className="mb-4">
-                <h3 className="text-lg font-semibold uppercase text-gray-900">
-                  Steps ---------
+                <h3 className="text-xl font-bold uppercase text-gray-900">
+                  -------------------Steps -------------------
                 </h3>
               </div>
               {/* End Heading */}

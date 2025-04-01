@@ -54,16 +54,16 @@ const Services = () => {
     <section className="py-8 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-b from-gray-50 to-white  ">
       <div className="lg:max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-left mb-8 sm:mb-12 md:mb-16">
-          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
+          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
             Our Services
           </h1>
-          <div className="h-1.5 w-20 sm:w-24 bg-blue-600 rounded-full mb-4 sm:mb-6"></div>
+          <div className="h-1.5 w-20 sm:w-24 bg-[#1AC0D8] rounded-full mb-4 sm:mb-6"></div>
           <p className="text-sm xs:text-base sm:text-lg md:text-lg text-gray-600">
             We provide expert assistance for all your insurance-related challenges and disputes.Whether you're dealing with claim rejections, policy disputes, or service-related problems, we are here to help you every step of the way.. 
           </p>
         </div>
         
-        <div className="grid grid-cols-2 xs:grid-cols-3 sm:flex mb-10 gap-4 xs:gap-6 sm:justify-center sm:space-x-32 ">
+        <div className="lg:max-w-[1300px] grid grid-cols-2 xs:grid-cols-3 sm:flex mb-10 gap-4 xs:gap-6 sm:justify-center sm:space-x-32 ">
           {insuranceTypes.map((type, index) => (
             <div key={index} className="flex flex-col items-center">
               <Image
@@ -78,7 +78,7 @@ const Services = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-12 ">
+        <div className="grid lg:max-w-[1300px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-12 ">
           {services.map((service, index) => (
             <div
               key={index}

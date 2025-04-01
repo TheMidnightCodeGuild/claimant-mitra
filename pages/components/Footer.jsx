@@ -38,8 +38,8 @@ const Footer = () => {
                   <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                   <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                 </svg>
-                <a href="mailto:corporate@insurancesamadhan.com" className="hover:text-[#1AC0D8] transition-colors">
-                  corporate@insurancesamadhan.com
+                <a href="mailto:info@claimantmitra.com" className="hover:text-[#1AC0D8] transition-colors">
+                 info@claimantmitra.com
                 </a>
               </p>
             </div>
@@ -91,7 +91,7 @@ const Footer = () => {
                   required 
                 />
                 <label htmlFor="newsletter-consent" className="text-xs">
-                  Yes, I would like to receive email communications from Insurance Samadhan. I can unsubscribe at any time.
+                  Yes, I would like to receive email communications from Claimant Mitra. I can unsubscribe at any time.
                 </label>
               </div>
               <button 
@@ -117,7 +117,7 @@ const Footer = () => {
       <div className="border-t border-gray-800">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-sm">© {new Date().getFullYear()} Insurance Samadhan. All rights reserved.</p>
+            <p className="text-sm">© {new Date().getFullYear()} Claimant Mitra. All rights reserved.</p>
             <p className="text-base text-gray-400 ">
               Designed and developed by{' '}
               <Link 
