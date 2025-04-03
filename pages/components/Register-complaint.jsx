@@ -10,7 +10,8 @@ const RegisterComplaint = () => {
     message: '',
     insuranceType: '',
     complaintType: '',
-    policyType: ''
+    policyType: '',
+    document: null
   });
 
   // UI state
@@ -41,11 +42,25 @@ const RegisterComplaint = () => {
 
   // Handle form input changes
   const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [id]: value
-    }));
+    const { id, value, files } = e.target;
+    
+    if (id === 'document') {
+      const file = files[0];
+      // Validate file size (max 5MB)
+      if (file && file.size > 5 * 1024 * 1024) {
+        setError('File size should not exceed 5MB');
+        return;
+      }
+      setFormData(prev => ({
+        ...prev,
+        document: file
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [id]: value
+      }));
+    }
     setError('');
 
     // Handle insurance type change
@@ -70,7 +85,7 @@ const RegisterComplaint = () => {
   const validateForm = () => {
     const { fullName, email, phone, insuranceType, complaintType } = formData;
     
-    if (!fullName || !email || !phone || !insuranceType || !complaintType) {
+    if (!fullName.trim() || !email.trim() || !phone.trim() || !insuranceType || !complaintType) {
       setError('Please fill all required fields');
       return false;
     }
@@ -80,12 +95,12 @@ const RegisterComplaint = () => {
       return false;
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
       setError('Please enter a valid email address');
       return false;
     }
 
-    if (!/^\d{10}$/.test(phone)) {
+    if (!/^\d{10}$/.test(phone.trim())) {
       setError('Please enter a valid 10-digit phone number');
       return false;
     }
@@ -102,8 +117,19 @@ const RegisterComplaint = () => {
     if (!validateForm()) return;
 
     try {
+      // Create FormData object for file upload
+      const formDataToSend = new FormData();
+      Object.keys(formData).forEach(key => {
+        formDataToSend.append(key, formData[key]);
+      });
+
       // API call would go here
-      setSuccess('Complaint registered successfully!');
+      // const response = await fetch('/api/submit-complaint', {
+      //   method: 'POST',
+      //   body: formDataToSend
+      // });
+      
+      setSuccess('Complaint registered successfully! We will contact you shortly.');
       
       // Reset form
       setFormData({
@@ -113,42 +139,39 @@ const RegisterComplaint = () => {
         message: '',
         insuranceType: '',
         complaintType: '',
-        policyType: ''
+        policyType: '',
+        document: null
       });
       setComplaintTypes([]);
       setPolicyTypes([]);
       
+      // Reset file input
+      const fileInput = document.getElementById('document');
+      if (fileInput) fileInput.value = '';
+      
     } catch (error) {
-      setError('Something went wrong. Please try again.');
+      setError('Something went wrong. Please try again later.');
+      console.error('Form submission error:', error);
     }
   };
 
   // CSS classes
-  const inputClasses = "text-body-color border-[f0f0f0]  w-full rounded border py-2 px-[14px] text-sm outline-none focus-visible:shadow-none";
-  const selectClasses = "select appearance-none text-gray-600 text-sm font-normal bg-white border-coolGray-200 shadow-input text-body-color border-[f0f0f0] focus:border-gray-800 w-full rounded border py-2 px-[16px] outline-none focus-visible:shadow-none";
+  const inputClasses = "text-body-color border-[f0f0f0] w-full rounded border py-2 px-[14px] text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-200";
+  const selectClasses = "select appearance-none text-gray-600 text-sm font-normal bg-white border-coolGray-200 shadow-input text-body-color border-[f0f0f0] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 w-full rounded border py-2 px-[16px] outline-none transition-all duration-200";
 
   return (
     <>
       <Navbar/>
-      <section className="lg:h-screen mt-10 p-10 relative bg-[url('/images/banner.png')] bg-[#101828] bg-cover object-cover overflow-x-hidden overflow-y-hidden">
+      <section className="h-screen p-4 mt-16 sm:p-6 md:p-10 relative bg-[url('/images/banner.png')] bg-[#101828] bg-cover bg-center">
         <div className="absolute inset-0 bg-black/10"></div>
-        <div className="px-4 relative z-[5] py-6 md:py-4 md:px-12 text-gray-800 text-center lg:text-left">
-          <div className="lg:max-w-[1300px] w-full mx-auto">
-            <div className="lg:flex lg:justify-between lg:gap-12 items-center">
-              <div className="mt-20 w-full lg:mt-0">
-                <h1 className="text-3xl sm:text-4xl md:text-[54px] lg:leading-[60px] md:leading-[60px] lg:text-[45px] text-center text-white font-semibold mb-3 md:mb-5 lg:mb-14 uppercase">
-                  Insurance Complaint <br /> Registration Portal
-                </h1>
-                <p className="text-white text-left md:w-[75%] text-base lg:text-[15px] font-light mb-3 md:mb-8">
-                  We are dedicated to helping you resolve your insurance-related concerns. Our complaint registration portal ensures your voice is heard and your issues are addressed promptly and effectively.
-                </p>
-            
-              </div>
-
-              <div className="mb-12 lg:mb-0 mt-10 md:mt-8 lg:w-[550px]">
-                <div className="block rounded-lg shadow-lg bg-white p-4">
-                  <form id="complaint-form" onSubmit={handleSubmit}>
-                    <div className="mb-4">
+        <div className="px-4 relative z-[5] py-4 md:py-6 md:px-8 lg:px-12 text-gray-800">
+          <div className="max-w-[1300px] mx-auto">
+            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-10">
+              {/* Form Section */}
+              <div className="w-full lg:w-[550px] order-2 lg:order-1">
+                <div className="block rounded-lg shadow-lg bg-white p-6 md:p-8">
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
                       <input 
                         id="fullName"
                         type="text"
@@ -159,7 +182,7 @@ const RegisterComplaint = () => {
                         required
                       />
                     </div>
-                    <div className="mb-4">
+                    <div>
                       <input 
                         id="email"
                         type="email"
@@ -170,7 +193,7 @@ const RegisterComplaint = () => {
                         required
                       />
                     </div>
-                    <div className="mb-4">
+                    <div>
                       <input 
                         id="phone"
                         type="tel"
@@ -183,7 +206,7 @@ const RegisterComplaint = () => {
                       />
                     </div>
 
-                    <div className="mb-4">
+                    <div>
                       <div className="relative">
                         <select 
                           id="insuranceType"
@@ -201,7 +224,7 @@ const RegisterComplaint = () => {
                     </div>
 
                     {formData.insuranceType === 'General Insurance' && (
-                      <div className="mb-4">
+                      <div>
                         <div className="relative">
                           <select 
                             id="policyType"
@@ -220,7 +243,7 @@ const RegisterComplaint = () => {
                     )}
 
                     {formData.insuranceType && (
-                      <div className="mb-4">
+                      <div>
                         <div className="relative">
                           <select 
                             id="complaintType"
@@ -238,24 +261,35 @@ const RegisterComplaint = () => {
                       </div>
                     )}
 
-                    <div className="mb-4">
+                    <div>
                       <textarea 
                         id="message"
-                        rows="5"
+                        rows="4"
                         placeholder="Describe your complaint in detail"
                         value={formData.message}
                         onChange={handleInputChange}
                         className={inputClasses}
                       />
                     </div>
+
+                    <div>
+                      <input
+                        id="document"
+                        type="file"
+                        onChange={handleInputChange}
+                        className={`${inputClasses} file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:bg-blue-500 file:text-white hover:file:bg-blue-600`}
+                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">Optional: Upload any relevant documents (Max 5MB - PDF, DOC, Images)</p>
+                    </div>
                     
-                    {error && <div className="text-red-500 mb-2">{error}</div>}
-                    {success && <div className="text-green-500 mb-2">{success}</div>}
+                    {error && <div className="text-red-500 text-sm font-medium">{error}</div>}
+                    {success && <div className="text-green-500 text-sm font-medium">{success}</div>}
                     
-                    <div className="flex justify-center mt-4">
+                    <div className="flex justify-center mt-6">
                       <button
                         type="submit"
-                        className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out"
+                        className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                       >
                         Submit Your Complaint
                       </button>
@@ -263,6 +297,37 @@ const RegisterComplaint = () => {
                   </form>
                 </div>
               </div>
+
+              {/* Content Section */}
+              <div className="w-full lg:w-[650px] text-white order-1 lg:order-2">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">Register Your Insurance Complaint</h1>
+                <p className="text-base sm:text-lg mb-6 sm:mb-8">We're here to help resolve your insurance-related issues. Fill out the form with your complaint details and our experts will get back to you shortly.</p>
+                <div className="space-y-6">
+                  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div className="text-center sm:text-left">
+                      <h3 className="text-xl font-semibold">Expert Assistance</h3>
+                      <p className="text-gray-300">Get professional help with your insurance complaints</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div className="text-center sm:text-left">
+                      <h3 className="text-xl font-semibold">Quick Resolution</h3>
+                      <p className="text-gray-300">Fast and efficient complaint resolution process</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>

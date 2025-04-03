@@ -4,29 +4,35 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Choose from '../components/Choose';
 import Faqs from '../components/Faqs';
-
+import Link from 'next/link';
 const MissellingOfInsurancePolicy = () => {
   return (
     <>
       <Navbar />
       
       {/* Hero Banner */}
-      <div className="relative h-[60vh] lg:h-[80vh] w-full">
+      <div className="relative h-[60vh] lg:h-[80vh] w-full ">
         <Image
-          src="/images/contactbanner.png" 
+          src="/images/bg.png" 
           alt="Insurance Misselling"
           fill
-          className="object-cover brightness-50"
+          className="object-cover blur-[4px] "
           priority
         />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-white px-4">
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6 tracking-tight">
-              Insurance Policy Misselling Claims
+        <div className="absolute bg-black/50 inset-0 flex items-center justify-center">
+          <div className="text-center text-white  px-4 mt-24">
+            <h1 className="text-4xl lg:text-5xl underline  font-semibold uppercase mb-5 tracking-tight ">
+              Insurance Misselling Support
             </h1>
-            <p className="text-lg lg:text-2xl max-w-3xl mx-auto font-light leading-relaxed">
+            <p className="text-lg lg:text-xl max-w-xl mx-auto font-light leading-relaxed">
               Were you misled about your insurance policy? We help victims of insurance misselling get justice and compensation.
             </p>
+            <Link
+            href="/components/Register-complaint"
+            className="inline-block bg-[#1AC0D8] text-white font-semibold px-4 xs:px-6 sm:px-5 py-2 xs:py-2.5 sm:py-2.5 text-sm xs:text-sm sm:text-base hover:bg-[#15a9bf] transition-all duration-300 rounded-full border-white border-2 hover:shadow-lg w-56 sm:w-auto mx-auto sm:mx-0 mt-5"
+          >
+            Register Your Complaint
+          </Link>
           </div>
         </div>
       </div>
@@ -36,59 +42,50 @@ const MissellingOfInsurancePolicy = () => {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-8 leading-tight">
-              Understanding Insurance Misselling
+              Common Signs of Insurance Misselling
             </h2>
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              Insurance misselling occurs when you are sold an insurance policy based on incorrect, incomplete or misleading information. This can include:
+              Insurance misselling occurs when policies are sold through deceptive practices. Here are key warning signs to watch out for:
             </p>
             <ul className="list-none space-y-4 mb-8">
-              <li className="flex items-center text-gray-600">
+              <li className="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-300">
                 <svg className="w-6 h-6 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                Not disclosing important policy terms and conditions
+                Incomplete or misleading information about policy terms
               </li>
-              <li className="flex items-center text-gray-600">
+              <li className="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-300">
                 <svg className="w-6 h-6 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                Misrepresenting policy benefits and returns
+                Hidden fees and charges not disclosed upfront
               </li>
-              <li className="flex items-center text-gray-600">
+              <li className="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-300">
                 <svg className="w-6 h-6 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                Selling unsuitable policies without considering your needs
+                Pressure tactics to buy unsuitable policies
               </li>
-              <li className="flex items-center text-gray-600">
+              <li className="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-300">
                 <svg className="w-6 h-6 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                Making false promises about policy performance
+                False promises about returns and benefits
               </li>
-              <li className="flex items-center text-gray-600">
+              <li className="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-300">
                 <svg className="w-6 h-6 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                Hiding or understating policy risks and limitations
+                Lack of proper need assessment and documentation
               </li>
             </ul>
-            <a 
-              href="/contact-us"
-              className="inline-flex items-center bg-blue-600 text-white px-8 py-4 rounded-full hover:bg-blue-700 transition-colors duration-300 text-lg font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-            >
-              Get Expert Help
-              <svg className="w-6 h-6 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
           </div>
-          <div className="relative h-[400px] lg:h-[600px] w-full ">
+          <div className="relative h-[400px] lg:h-[500px] rounded-2xl overflow-hidden border-b">
             <Image
               src="/images/Insurance-Misselling-Support.png"
-              alt="Insurance Consultation"
+              alt="Insurance Misselling Warning Signs"
               fill
-              className="object-cover"
+              className="object-contain "
             />
           </div>
         </div>
