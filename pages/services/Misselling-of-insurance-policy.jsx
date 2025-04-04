@@ -12,7 +12,7 @@ const MissellingOfInsurancePolicy = () => {
       <Navbar />
       
       {/* Hero Banner */}
-      <div className="relative h-[50vh] sm:h-[60vh] lg:h-[80vh] w-full">
+      <div className="relative h-[80vh] sm:h-[60vh] lg:h-[80vh] w-full">
         <Image
           src="/images/bg.png" 
           alt="Insurance Misselling"
@@ -25,7 +25,7 @@ const MissellingOfInsurancePolicy = () => {
             <h1 className="text-3xl sm:text-3xl lg:text-5xl underline font-semibold uppercase mb-3 sm:mb-5 tracking-tight">
               Insurance Misselling Support
             </h1>
-            <p className="text-xs sm:text-lg lg:text-xl max-w-xl mx-auto font-light leading-relaxed px-2 sm:px-4">
+            <p className="text-base sm:text-lg lg:text-xl max-w-xl mx-auto font-light leading-relaxed px-2 sm:px-4">
               Were you misled about your insurance policy? We help victims of insurance misselling get justice and compensation.
             </p>
             <Link

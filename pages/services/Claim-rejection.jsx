@@ -11,7 +11,7 @@ const ClaimRejection = () => {
       <Navbar />
       
       {/* Hero Banner */}
-      <div className="relative h-[60vh] lg:h-[80vh] w-full ">
+      <div className="relative h-[80vh] lg:h-[80vh] w-full ">
         <Image
           src="/images/bg.png" 
           alt="Insurance Claim Rejection"
@@ -24,7 +24,7 @@ const ClaimRejection = () => {
             <h1 className="text-4xl lg:text-5xl underline  font-semibold uppercase mb-5 tracking-tight ">
               Insurance Claim Rejection Support
             </h1>
-            <p className="text-lg lg:text-xl max-w-xl mx-auto font-light leading-relaxed">
+            <p className="text-base lg:text-xl max-w-xl mx-auto font-light leading-relaxed">
               Was your insurance claim unfairly rejected? We help policyholders fight claim rejections and get the compensation they deserve.
             </p>
             <Link

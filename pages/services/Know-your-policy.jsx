@@ -11,7 +11,7 @@ const KnowYourPolicy = () => {
       <Navbar />
       
       {/* Hero Banner */}
-      <div className="relative h-[60vh] lg:h-[80vh] w-full ">
+      <div className="relative h-[80vh] lg:h-[80vh] w-full ">
         <Image
           src="/images/bg.png" 
           alt="Know Your Insurance Policy"
@@ -24,7 +24,7 @@ const KnowYourPolicy = () => {
             <h1 className="text-4xl lg:text-5xl underline font-semibold uppercase mb-5 tracking-tight">
               Know Your Insurance Policy
             </h1>
-            <p className="text-lg lg:text-xl max-w-xl mx-auto font-light leading-relaxed">
+            <p className="text-base lg:text-xl max-w-xl mx-auto font-light leading-relaxed">
               Understanding your insurance policy is crucial. Let our experts help you decode your policy terms and ensure you get the most from your coverage.
             </p>
             <Link

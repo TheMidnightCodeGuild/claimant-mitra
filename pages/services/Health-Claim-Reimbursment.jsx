@@ -11,7 +11,7 @@ const HealthClaimReimbursement = () => {
       <Navbar />
       
       {/* Hero Banner */}
-      <div className="relative h-[60vh] lg:h-[80vh] w-full ">
+      <div className="relative h-[80vh] lg:h-[80vh] w-full ">
         <Image
           src="/images/bg.png" 
           alt="Health Insurance Claim Reimbursement"
@@ -24,7 +24,7 @@ const HealthClaimReimbursement = () => {
             <h1 className="text-4xl lg:text-5xl underline  font-semibold uppercase mb-5 tracking-tight ">
               Health Claim Reimbursement Support
             </h1>
-            <p className="text-lg lg:text-xl max-w-xl mx-auto font-light leading-relaxed">
+            <p className="text-base lg:text-xl max-w-xl mx-auto font-light leading-relaxed">
               Need help with your health insurance reimbursement? We assist in filing and tracking your claims for faster processing.
             </p>
             <Link

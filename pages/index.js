@@ -11,16 +11,18 @@ import Choose from "./components/Choose";
 import Why from "./components/Why";
 import Loader from "./components/Loader";
 import Contactbanner from "./components/Contactbanner";
-
+import Banner2 from "./components/Banner2";
 const index = () => {
   return (
     <div className="bg-[#F8FAFC]">
       <Navbar />
       <Landing />
+      <Banner2 />
       <Loader />
-      <Banner />
+  
       <About />
       <Second />
+      <Banner />
       <Services />
       <Why />
       <Choose />
