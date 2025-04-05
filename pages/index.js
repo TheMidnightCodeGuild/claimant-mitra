@@ -12,25 +12,25 @@ import Why from "./components/Why";
 import Loader from "./components/Loader";
 import Contactbanner from "./components/Contactbanner";
 import Banner2 from "./components/Banner2";
-const index = () => {
+
+const Home = () => {
   return (
     <div className="bg-[#F8FAFC]">
       <Navbar />
       <Landing />
       <Banner2 />
       <Loader />
-  
       <About />
       <Second />
       <Banner />
       <Services />
       <Why />
       <Choose />
-      <Contactbanner/>
+      <Contactbanner />
       <Faqs />
       <Footer />
     </div>
   );
 };
 
-export default index;
+export default Home;
