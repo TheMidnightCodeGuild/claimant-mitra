@@ -137,7 +137,7 @@ const Navbar = () => {
             </div>
 
             <Link
-              href="https://partner.claimantmitra.com/join"
+              href="https://partner.claimantmitra.com/join/partner"
               className="relative rounded-full py-1 transition-colors group"
             >
               Partnership
