@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import Navbar from './Navbar';
+import { db, storage } from '../../firebase/config';
+import { collection, addDoc } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const RegisterComplaint = () => {
   // Form state
@@ -19,6 +22,7 @@ const RegisterComplaint = () => {
   const [success, setSuccess] = useState('');
   const [complaintTypes, setComplaintTypes] = useState([]);
   const [policyTypes, setPolicyTypes] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   // Insurance type options mapping
   const insuranceOptions = {
@@ -113,21 +117,39 @@ const RegisterComplaint = () => {
     e.preventDefault();
     setError('');
     setSuccess('');
+    setLoading(true);
     
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      setLoading(false);
+      return;
+    }
 
     try {
-      // Create FormData object for file upload
-      const formDataToSend = new FormData();
-      Object.keys(formData).forEach(key => {
-        formDataToSend.append(key, formData[key]);
-      });
+      let documentUrl = null;
 
-      // API call would go here
-      // const response = await fetch('/api/submit-complaint', {
-      //   method: 'POST',
-      //   body: formDataToSend
-      // });
+      // Upload document if exists
+      if (formData.document) {
+        const storageRef = ref(storage, `complaints/${Date.now()}_${formData.document.name}`);
+        await uploadBytes(storageRef, formData.document);
+        documentUrl = await getDownloadURL(storageRef);
+      }
+
+      // Prepare data for Firestore
+      const complaintData = {
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+        insuranceType: formData.insuranceType,
+        complaintType: formData.complaintType,
+        policyType: formData.policyType || null,
+        documentUrl,
+        createdAt: new Date(),
+        status: 'pending'
+      };
+
+      // Add to Firestore
+      await addDoc(collection(db, 'enquiries'), complaintData);
       
       setSuccess('Complaint registered successfully! We will contact you shortly.');
       
@@ -152,6 +174,8 @@ const RegisterComplaint = () => {
     } catch (error) {
       setError('Something went wrong. Please try again later.');
       console.error('Form submission error:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -289,9 +313,10 @@ const RegisterComplaint = () => {
                     <div className="flex justify-center mt-6">
                       <button
                         type="submit"
-                        className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                        disabled={loading}
+                        className={`w-full sm:w-auto bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                       >
-                        Submit Your Complaint
+                        {loading ? 'Submitting...' : 'Submit Your Complaint'}
                       </button>
                     </div>
                   </form>
