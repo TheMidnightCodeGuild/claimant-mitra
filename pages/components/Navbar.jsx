@@ -345,7 +345,7 @@ const Navbar = () => {
               </div>
 
               <Link
-                href="/partnership"
+                href="https://partner.claimantmitra.com/join/partner"
                 className="px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-lg"
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -370,7 +370,7 @@ const Navbar = () => {
 
               <div className="border-t border-gray-200 pt-4 space-y-4">
                 <Link
-                  href="https://partnerportal.claimantmitra.com"
+                  href="https://partner.claimantmitra.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block w-full px-4 py-3 text-center font-medium text-gray-900 bg-gray-100 rounded-lg hover:bg-gray-200"
