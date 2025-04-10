@@ -10,9 +10,9 @@ const Blog2 = () => {
       <Navbar />
       <div className="w-full max-w-[1300px] mx-auto py-8 sm:py-12 px-4 sm:px-6 mt-20">
         <article className="p-4 sm:p-6 bg-white rounded-lg sm:rounded-xl shadow-md sm:shadow-lg hover:shadow-xl transition-shadow duration-300">
-          <div className="relative h-48 sm:h-56 md:h-64 w-full mb-4 sm:mb-6">
+          <div className="relative h-96 sm:h-112 md:h-128  w-full mb-4 sm:mb-6">
             <Image
-              src="/images/bg.png"
+              src="/images/blog2.png"
               alt="Claim Rejection Analysis"
               fill
               className="object-cover rounded-md sm:rounded-lg"
