@@ -13,7 +13,7 @@ const Footer = () => {
             <div className="mb-4 flex justify-center sm:justify-start">
               <Image 
                 src="/images/logo.png"
-                alt="Insurance Samadhan"
+                alt="Claimant Mitra"
                 width={160}
                 height={45}
                 className="w-auto h-auto rounded-3xl mx-12"

@@ -64,7 +64,7 @@ const Navbar = () => {
             <Link href="/" className="flex items-center justify-center">
               <Image
                 src="/images/logo.png"
-                alt="Insurance Samadhan"
+                alt="Claimant Mitra"
                 width={130}
                 height={45}
                 className="sm:w-auto sm:h-auto"
@@ -259,7 +259,7 @@ const Navbar = () => {
               <Link href="/" onClick={() => setMobileMenuOpen(false)}>
                 <Image
                   src="/images/logo.png"
-                  alt="Insurance Samadhan"
+                  alt="Claimant Mitra"
                   width={140}
                   height={35}
                   priority
