@@ -179,6 +179,17 @@ const Navbar = () => {
               </Link>
 
               <Link
+                href="/components/TrackComplaint"
+                className="relative inline-block px-4 py-2 font-medium group"
+              >
+                <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+                <span className="absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-[#1AC0D8]"></span>
+                <span className="relative text-black group-hover:text-white">
+                  Track Complaint
+                </span>
+              </Link>
+
+              <Link
                 href="https://partner.claimantmitra.com"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -387,6 +398,14 @@ const Navbar = () => {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Contact-us
+                </Link>
+
+                <Link
+                  href="/components/TrackComplaint"
+                  className="block w-full px-4 py-3 text-center font-medium text-gray-900 bg-gray-100 rounded-lg hover:bg-gray-200"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Track Complaint
                 </Link>
 
                 <div className="border-t border-gray-200 pt-4 space-y-4">
