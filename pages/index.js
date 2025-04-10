@@ -12,7 +12,7 @@ import Why from "./components/Why";
 import Loader from "./components/Loader";
 import Contactbanner from "./components/Contactbanner";
 import Banner2 from "./components/Banner2";
-import Testimonial from "./components/Testimonial";
+
 const Home = () => {
   return (
     <div className="bg-[#F8FAFC]">
@@ -27,7 +27,7 @@ const Home = () => {
       <Why />
       <Choose />
       <Contactbanner />
-      {/* <Testimonial /> */}
+     
       <Faqs />
       <Footer />
     </div>
