@@ -91,7 +91,7 @@ const Footer = () => {
                   required 
                 />
                 <label htmlFor="newsletter-consent" className="text-xs">
-                  Yes, I would like to receive email communications from Claimant Mitra. I can unsubscribe at any time.
+                  Yes, I would like to receive emails from Claimant Mitra. I can unsubscribe at any time.
                 </label>
               </div>
               <button 
