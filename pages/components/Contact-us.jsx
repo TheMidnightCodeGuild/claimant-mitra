@@ -1,8 +1,56 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { db } from '../../lib/firebase';
+import { collection, addDoc } from 'firebase/firestore';
 
 const Contactus = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [id]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setSuccess('');
+
+    try {
+      // Add to Firestore
+      await addDoc(collection(db, 'contact'), formData);
+      
+      setSuccess('Message sent successfully! We will contact you shortly.');
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        message: ''
+      });
+      
+    } catch (error) {
+      setError('Something went wrong. Please try again later.');
+      console.error('Form submission error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
     <Navbar/>
@@ -140,41 +188,60 @@ const Contactus = () => {
             </div>
             <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
               <div className="relative rounded-3xl border-black border-2 bg-white p-8 shadow-lg dark:bg-dark-2 sm:p-12">
-                <form>
+                <form onSubmit={handleSubmit}>
+                  {error && <div className="text-red-500 mb-4">{error}</div>}
+                  {success && <div className="text-green-500 mb-4">{success}</div>}
                   <div className="mb-6">
                     <input
                       type="text"
+                      id="name"
                       placeholder="Your Name"
+                      value={formData.name}
+                      onChange={handleInputChange}
                       className="border-[f0f0f0] w-full rounded border py-3 px-[14px] text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none"
+                      required
                     />
                   </div>
                   <div className="mb-6">
                     <input
                       type="email" 
+                      id="email"
                       placeholder="Your Email"
+                      value={formData.email}
+                      onChange={handleInputChange}
                       className="border-[f0f0f0] w-full rounded border py-3 px-[14px] text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none"
+                      required
                     />
                   </div>
                   <div className="mb-6">
                     <input
                       type="text"
+                      id="phone"
                       placeholder="Your Phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
                       className="border-[f0f0f0] w-full rounded border py-3 px-[14px] text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none"
+                      required
                     />
                   </div>
                   <div className="mb-6">
                     <textarea
                       rows="6"
+                      id="message"
                       placeholder="Your Message"
+                      value={formData.message}
+                      onChange={handleInputChange}
                       className="border-[f0f0f0] w-full resize-none rounded border py-3 px-[14px] text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none"
+                      required
                     ></textarea>
                   </div>
                   <div>
                     <button
                       type="submit"
-                      className="w-full rounded-full border bg-blue-500 p-3 text-white transition hover:bg-opacity-90"
+                      disabled={loading}
+                      className="w-full rounded-full border bg-blue-500 p-3 text-white transition hover:bg-opacity-90 disabled:opacity-50"
                     >
-                      Send Message
+                      {loading ? 'Sending...' : 'Send Message'}
                     </button>
                   </div>
                 </form>
