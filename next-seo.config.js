@@ -1,6 +1,6 @@
 // next-seo.config.js
 const SEO = {
-    title: "Claimant Mitra - Investment Consultants",
+    title: "Claimant Mitra - Claim Consultants",
     description: "We help you get your insurance claims settled quickly and efficiently.",
     canonical: "https://claimantmitra.com/",
     openGraph: {
