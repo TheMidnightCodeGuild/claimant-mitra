@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <div className="bg-[#F8FAFC]">
       <Head>
-        <title>Claimant Mitra-Investment Consultants</title>
+        <title>Claimant Mitra-Claim Consultants</title>
         <meta name="description" content="We help you get your insurance claims settled quickly and efficiently. Our expert team handles all types of insurance cases." />
         <meta name="keywords" content="insurance claims, claim settlement, insurance help, Claimant Mitra" />
         <meta name="author" content="Claimant Mitra Team" />
