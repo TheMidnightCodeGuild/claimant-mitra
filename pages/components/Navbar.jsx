@@ -98,6 +98,7 @@ const Navbar = () => {
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
+                    
                     <path
                       d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
                       stroke="currentColor"

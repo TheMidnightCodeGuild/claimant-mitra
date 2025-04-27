@@ -56,7 +56,7 @@ const Contactus = () => {
     <Navbar/>
       <div 
         className="bg-cover h-[300px] lg:h-[550px] mt-10 lg:mt-0 flex items-center bg-center object-cover justify-center bg-black flex-col relative" 
-        style={{backgroundImage: "url('/images/contactbanner.png')", objectFit: "cover"}}
+        style={{backgroundImage: "url('/images/contactbanner.webp')", objectFit: "cover"}}
       >
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="lg:mt-10 flex items-center justify-center flex-col w-full mt-10">
