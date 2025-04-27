@@ -282,7 +282,7 @@ const RegisterComplaint = () => {
                   <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                       <div>
-                        <label htmlFor="fullName" className={labelClasses}>Full Name *</label>
+                        <label htmlFor="fullName" className={labelClasses}>Full Name</label>
                         <input 
                           id="fullName"
                           type="text"
@@ -290,11 +290,10 @@ const RegisterComplaint = () => {
                           value={formData.fullName}
                           onChange={handleInputChange}
                           className={inputClasses}
-                          required
                         />
                       </div>
                       <div>
-                        <label htmlFor="email" className={labelClasses}>Email Address *</label>
+                        <label htmlFor="email" className={labelClasses}>Email Address</label>
                         <input 
                           id="email"
                           type="email"
@@ -302,14 +301,13 @@ const RegisterComplaint = () => {
                           value={formData.email}
                           onChange={handleInputChange}
                           className={inputClasses}
-                          required
                         />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                       <div>
-                        <label htmlFor="phone" className={labelClasses}>Phone Number *</label>
+                        <label htmlFor="phone" className={labelClasses}>Phone Number</label>
                         <input 
                           id="phone"
                           type="tel"
@@ -317,12 +315,11 @@ const RegisterComplaint = () => {
                           value={formData.phone}
                           onChange={handleInputChange}
                           className={inputClasses}
-                          required
                           pattern="[0-9]{10}"
                         />
                       </div>
                       <div>
-                        <label htmlFor="policyHolder" className={labelClasses}>Policy Holder Name *</label>
+                        <label htmlFor="policyHolder" className={labelClasses}>Policy Holder Name</label>
                         <input 
                           id="policyHolder"
                           type="text"
@@ -330,13 +327,12 @@ const RegisterComplaint = () => {
                           value={formData.policyHolder}
                           onChange={handleInputChange}
                           className={inputClasses}
-                          required
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label htmlFor="aadharNo" className={labelClasses}>Aadhar Number *</label>
+                      <label htmlFor="aadharNo" className={labelClasses}>Aadhar Number</label>
                       <input 
                         id="aadharNo"
                         type="text"
@@ -344,13 +340,12 @@ const RegisterComplaint = () => {
                         value={formData.aadharNo}
                         onChange={handleInputChange}
                         className={inputClasses}
-                        required
                         pattern="[0-9]{12}"
                       />
                     </div>
 
                     <div>
-                      <label htmlFor="address" className={labelClasses}>Full Address *</label>
+                      <label htmlFor="address" className={labelClasses}>Full Address</label>
                       <textarea 
                         id="address"
                         rows="2"
@@ -358,19 +353,17 @@ const RegisterComplaint = () => {
                         value={formData.address}
                         onChange={handleInputChange}
                         className={inputClasses}
-                        required
                       />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                       <div>
-                        <label htmlFor="insuranceType" className={labelClasses}>Insurance Type *</label>
+                        <label htmlFor="insuranceType" className={labelClasses}>Insurance Type</label>
                         <select 
                           id="insuranceType"
                           className={selectClasses}
                           onChange={handleInputChange}
                           value={formData.insuranceType}
-                          required
                         >
                           <option value="">Select insurance type</option>
                           {Object.keys(insuranceOptions).map(type => (
@@ -381,13 +374,12 @@ const RegisterComplaint = () => {
 
                       {formData.insuranceType === 'General Insurance' && (
                         <div>
-                          <label htmlFor="policyType" className={labelClasses}>Policy Type *</label>
+                          <label htmlFor="policyType" className={labelClasses}>Policy Type</label>
                           <select 
                             id="policyType"
                             className={selectClasses}
                             onChange={handleInputChange}
                             value={formData.policyType}
-                            required
                           >
                             <option value="">Select policy type</option>
                             {policyTypes.map((type, index) => (
@@ -400,13 +392,12 @@ const RegisterComplaint = () => {
 
                     {formData.insuranceType && (
                       <div>
-                        <label htmlFor="complaintType" className={labelClasses}>Complaint Type *</label>
+                        <label htmlFor="complaintType" className={labelClasses}>Complaint Type</label>
                         <select 
                           id="complaintType"
                           className={selectClasses}
                           onChange={handleInputChange}
                           value={formData.complaintType}
-                          required
                         >
                           <option value="">Select complaint type</option>
                           {complaintTypes.map((type, index) => (
