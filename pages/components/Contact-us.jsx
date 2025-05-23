@@ -154,7 +154,7 @@ const Contactus = () => {
                       Phone Number
                     </h4>
                     <p className="text-sm sm:text-base text-body-color dark:text-dark-6">
-                      (+91) 9098645524
+                      022-69645811
                     </p>
                   </div>
                 </div>
