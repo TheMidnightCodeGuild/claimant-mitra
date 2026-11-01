@@ -119,6 +119,38 @@ const Footer = () => {
                   Know your policy
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/services/Loan-dispute"
+                  className="text-sm hover:text-[#1AC0D8] transition-colors"
+                >
+                  Loan Dispute
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/services/Loan-settlement"
+                  className="text-sm hover:text-[#1AC0D8] transition-colors"
+                >
+                  Loan Settlement
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/services/Credit-score"
+                  className="text-sm hover:text-[#1AC0D8] transition-colors"
+                >
+                  Credit Score
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/services/Mailing-case"
+                  className="text-sm hover:text-[#1AC0D8] transition-colors"
+                >
+                  Mailing Case
+                </Link>
+              </li>
             </ul>
           </div>
 

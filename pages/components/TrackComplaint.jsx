@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { db } from '../../lib/firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
+import { CASE_TYPES, STAGE_LABELS } from '../../lib/serviceCaseTypes';
 
 const TrackComplaint = () => {
   const [email, setEmail] = useState('');
   const [complaintData, setComplaintData] = useState(null);
+  const [serviceCases, setServiceCases] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [showAllLogs, setShowAllLogs] = useState(false);
@@ -14,23 +16,30 @@ const TrackComplaint = () => {
     setLoading(true);
     setError('');
     setComplaintData(null);
+    setServiceCases([]);
     setShowAllLogs(false);
 
     try {
-      const q = query(
-        collection(db, 'users'),
-        where('email', '==', email.toLowerCase())
-      );
-      
-      const querySnapshot = await getDocs(q);
-      
-      if (querySnapshot.empty) {
+      const normalised = email.trim().toLowerCase();
+      // Loan / mailing cases are a bonus on top of the insurance lookup: if that read
+      // is refused (rules not applied yet) or fails, insurance tracking must still work.
+      const [insuranceSnap, serviceSnap] = await Promise.all([
+        getDocs(query(collection(db, 'users'), where('email', '==', email.toLowerCase()))),
+        getDocs(query(collection(db, 'serviceCases'), where('email', '==', normalised))).catch((err) => {
+          console.error('Could not look up loan / mailing cases:', err);
+          return { empty: true, docs: [] };
+        }),
+      ]);
+
+      if (insuranceSnap.empty && serviceSnap.empty) {
         setError('No complaint found with this email address');
         return;
       }
 
-      const doc = querySnapshot.docs[0];
-      setComplaintData(doc.data());
+      if (!insuranceSnap.empty) {
+        setComplaintData(insuranceSnap.docs[0].data());
+      }
+      setServiceCases(serviceSnap.docs.map((d) => ({ id: d.id, ...d.data() })));
     } catch (err) {
       setError('Error fetching complaint data. Please try again.');
       console.error('Error:', err);
@@ -141,6 +150,35 @@ const TrackComplaint = () => {
             )}
           </div>
         )}
+
+        {serviceCases.map((c) => (
+          <div key={c.id} className="bg-white rounded-xl shadow-md p-4 sm:p-8 border border-gray-100 mt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6">
+              <div className="p-3 sm:p-4 bg-gray-50 rounded-lg">
+                <h3 className="font-semibold text-gray-700 mb-2">Case</h3>
+                <p className="text-gray-800 break-words">{CASE_TYPES[c.caseType]?.label || 'N/A'}</p>
+              </div>
+              <div className="p-3 sm:p-4 bg-gray-50 rounded-lg">
+                <h3 className="font-semibold text-gray-700 mb-2">Status</h3>
+                <p className="text-gray-800 break-words">{STAGE_LABELS[c.stage] || STAGE_LABELS.new}</p>
+              </div>
+              <div className="p-3 sm:p-4 bg-gray-50 rounded-lg">
+                <h3 className="font-semibold text-gray-700 mb-2">Name</h3>
+                <p className="text-gray-800 break-words">{c.name || 'N/A'}</p>
+              </div>
+              <div className="p-3 sm:p-4 bg-gray-50 rounded-lg">
+                <h3 className="font-semibold text-gray-700 mb-2">Received</h3>
+                <p className="text-gray-800">{formatDate(c.complaintDate)}</p>
+              </div>
+            </div>
+            {c.mainLogs && c.mainLogs.length > 0 && (
+              <div className="border-t pt-6">
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">Case Timeline</h3>
+                {renderLogs(c.mainLogs)}
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );

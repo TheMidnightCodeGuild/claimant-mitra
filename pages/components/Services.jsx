@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Services = () => {
   const [flippedCards, setFlippedCards] = useState(new Array(6).fill(false));
@@ -46,6 +47,29 @@ const Services = () => {
       description:
         "Our specialists work to expedite delayed claim processes, ensuring efficient handling of your case and minimizing unnecessary waiting periods for claim settlement.",
       icon: "/images/claim-process-acceleration.png",
+    },
+  ];
+
+  const loanServices = [
+    {
+      title: "Loan Dispute",
+      description: "Unfair charges, wrong balances or recovery harassment taken up with your lender.",
+      href: "/services/Loan-dispute",
+    },
+    {
+      title: "Loan Settlement",
+      description: "Negotiating a one-time settlement and getting it closed in writing.",
+      href: "/services/Loan-settlement",
+    },
+    {
+      title: "Credit Score",
+      description: "Finding and correcting errors in your credit report.",
+      href: "/services/Credit-score",
+    },
+    {
+      title: "Mailing Case",
+      description: "Letters and emails drafted, sent and tracked until the issue is resolved.",
+      href: "/services/Mailing-case",
     },
   ];
 
@@ -121,6 +145,22 @@ const Services = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="mb-12">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Loan, credit &amp; correspondence help</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {loanServices.map((service) => (
+              <Link
+                key={service.href}
+                href={service.href}
+                className="block rounded-xl border border-gray-800 bg-blue-50 p-5 hover:bg-blue-100 transition-colors"
+              >
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{service.title}</h3>
+                <p className="text-sm text-gray-700">{service.description}</p>
+              </Link>
+            ))}
+          </div>
         </div>
 
       </div>

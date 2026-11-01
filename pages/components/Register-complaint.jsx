@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import Navbar from './Navbar';
 import { db, storage } from '../../lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { CASE_TYPES, CASE_TYPE_KEYS, isCaseType } from '../../lib/serviceCaseTypes';
 
 const RegisterComplaint = () => {
-  // Form state
+  const router = useRouter();
+
+  // Form state. caseType is empty for an insurance complaint; otherwise it is
+  // one of the loan / credit / mailing types and the insurance fields are unused.
   const [formData, setFormData] = useState({
+    caseType: '',
     fullName: '',
     email: '',
     phone: '',
@@ -47,10 +53,35 @@ const RegisterComplaint = () => {
     }
   };
 
+  // The service pages link here with ?type=<caseType>
+  useEffect(() => {
+    const requested = router.query.type;
+    if (isCaseType(requested)) {
+      setFormData(prev => (prev.caseType === requested ? prev : { ...prev, caseType: requested }));
+    }
+  }, [router.query.type]);
+
+  const serviceCase = formData.caseType ? CASE_TYPES[formData.caseType] : null;
+
   // Handle form input changes
   const handleInputChange = (e) => {
     const { id, value, files } = e.target;
-    
+
+    if (id === 'caseType') {
+      // Answers specific to the previous type do not carry over.
+      setFormData(prev => {
+        const next = { ...prev, caseType: value, insuranceType: '', complaintType: '', policyType: '' };
+        for (const type of CASE_TYPE_KEYS) {
+          for (const field of CASE_TYPES[type].fields) next[field.name] = '';
+        }
+        return next;
+      });
+      setComplaintTypes([]);
+      setPolicyTypes([]);
+      setError('');
+      return;
+    }
+
     if (id === 'documents') {
       const fileArray = Array.from(files);
       // Validate each file size (max 5MB)
@@ -100,7 +131,32 @@ const RegisterComplaint = () => {
   // Form validation
   const validateForm = () => {
     const { fullName, email, phone, insuranceType, complaintType, policyHolder, aadharNo, address } = formData;
-    
+
+    if (serviceCase) {
+      if (!fullName.trim() || !email.trim() || !phone.trim()) {
+        setError('Please fill all required fields');
+        return false;
+      }
+      const missing = serviceCase.fields.find(f => f.required && !String(formData[f.name] ?? '').trim());
+      if (missing) {
+        setError(`Please fill in: ${missing.label}`);
+        return false;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+        setError('Please enter a valid email address');
+        return false;
+      }
+      if (!/^\d{10}$/.test(phone.trim())) {
+        setError('Please enter a valid 10-digit phone number');
+        return false;
+      }
+      if (aadharNo.trim() && !/^\d{12}$/.test(aadharNo.trim())) {
+        setError('Please enter a valid 12-digit Aadhar number');
+        return false;
+      }
+      return true;
+    }
+
     if (!fullName.trim() || !email.trim() || !phone.trim() || !insuranceType || !complaintType || !policyHolder.trim() || !aadharNo.trim() || !address.trim()) {
       setError('Please fill all required fields');
       return false;
@@ -155,29 +211,52 @@ const RegisterComplaint = () => {
       }
 
       // Prepare data for Firestore
-      const complaintData = {
-        fullName: formData.fullName,
-        email: formData.email,
-        phone: formData.phone,
-        message: formData.message,
-        insuranceType: formData.insuranceType,
-        complaintType: formData.complaintType,
-        policyType: formData.policyType || null,
-        policyHolder: formData.policyHolder,
-        aadharNo: formData.aadharNo,
-        address: formData.address,
-        fileBucket, // Array of document URLs
-        createdAt: new Date(),
-        status: 'pending'
-      };
+      let complaintData;
+      if (serviceCase) {
+        // Loan / credit / mailing enquiry: no insurance fields. The master portal
+        // turns it into a serviceCases document when staff take it.
+        complaintData = {
+          caseType: formData.caseType,
+          fullName: formData.fullName.trim(),
+          email: formData.email.trim().toLowerCase(),
+          phone: formData.phone.trim(),
+          message: formData.message,
+          aadharNo: formData.aadharNo.trim(),
+          address: formData.address.trim(),
+          fileBucket,
+          createdAt: new Date(),
+          status: 'pending'
+        };
+        for (const field of serviceCase.fields) {
+          const value = formData[field.name] ?? '';
+          complaintData[field.name] = field.type === 'number' && value !== '' ? Number(value) : value;
+        }
+      } else {
+        complaintData = {
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+          insuranceType: formData.insuranceType,
+          complaintType: formData.complaintType,
+          policyType: formData.policyType || null,
+          policyHolder: formData.policyHolder,
+          aadharNo: formData.aadharNo,
+          address: formData.address,
+          fileBucket, // Array of document URLs
+          createdAt: new Date(),
+          status: 'pending'
+        };
+      }
 
       // Add to Firestore
       await addDoc(collection(db, 'enquiries'), complaintData);
       
       setSuccess('Complaint registered successfully! We will contact you shortly.');
       
-      // Reset form
+      // Reset form (the chosen case type stays, so a second case of the same kind is quick)
       setFormData({
+        caseType: formData.caseType,
         fullName: '',
         email: '',
         phone: '',
@@ -245,10 +324,12 @@ const RegisterComplaint = () => {
               {/* Content Section */}
               <div className="w-full lg:w-[40%] text-white order-2 lg:order-1">
                 <h1 className="text-3xl sm:text-4xl lg:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
-                  Register Your Insurance Complaint
+                  {serviceCase ? `Register Your ${serviceCase.label} Case` : 'Register Your Complaint'}
                 </h1>
                 <p className="text-base sm:text-lg mb-8 text-gray-300 leading-relaxed">
-                  We understand your concerns. Our expert team is here to help resolve your insurance-related issues quickly and efficiently.
+                  {serviceCase
+                    ? 'We understand your concerns. Our expert team is here to help resolve your loan, credit and correspondence issues quickly and efficiently.'
+                    : 'We understand your concerns. Our expert team is here to help resolve your insurance-related issues quickly and efficiently.'}
                 </p>
                 <div className="space-y-6 sm:space-y-8">
                   <div className="flex items-start gap-4 sm:gap-6 bg-white/10 p-4 sm:p-6 rounded-xl backdrop-blur-sm">
@@ -280,6 +361,21 @@ const RegisterComplaint = () => {
               <div className="w-full lg:w-[55%] order-1 lg:order-2">
                 <div className="backdrop-blur-lg bg-white/90 rounded-2xl shadow-xl p-4 sm:p-6 md:p-8">
                   <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                    <div>
+                      <label htmlFor="caseType" className={labelClasses}>What do you need help with?</label>
+                      <select
+                        id="caseType"
+                        className={selectClasses}
+                        onChange={handleInputChange}
+                        value={formData.caseType}
+                      >
+                        <option value="">Insurance claim or policy issue</option>
+                        {CASE_TYPE_KEYS.map(key => (
+                          <option key={key} value={key}>{CASE_TYPES[key].label}</option>
+                        ))}
+                      </select>
+                    </div>
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                       <div>
                         <label htmlFor="fullName" className={labelClasses}>Full Name</label>
@@ -318,21 +414,23 @@ const RegisterComplaint = () => {
                           pattern="[0-9]{10}"
                         />
                       </div>
-                      <div>
-                        <label htmlFor="policyHolder" className={labelClasses}>Policy Holder Name</label>
-                        <input 
-                          id="policyHolder"
-                          type="text"
-                          placeholder="Enter policy holder name"
-                          value={formData.policyHolder}
-                          onChange={handleInputChange}
-                          className={inputClasses}
-                        />
-                      </div>
+                      {!serviceCase && (
+                        <div>
+                          <label htmlFor="policyHolder" className={labelClasses}>Policy Holder Name</label>
+                          <input
+                            id="policyHolder"
+                            type="text"
+                            placeholder="Enter policy holder name"
+                            value={formData.policyHolder}
+                            onChange={handleInputChange}
+                            className={inputClasses}
+                          />
+                        </div>
+                      )}
                     </div>
 
                     <div>
-                      <label htmlFor="aadharNo" className={labelClasses}>Aadhar Number</label>
+                      <label htmlFor="aadharNo" className={labelClasses}>Aadhar Number{serviceCase ? ' (optional)' : ''}</label>
                       <input 
                         id="aadharNo"
                         type="text"
@@ -345,7 +443,7 @@ const RegisterComplaint = () => {
                     </div>
 
                     <div>
-                      <label htmlFor="address" className={labelClasses}>Full Address</label>
+                      <label htmlFor="address" className={labelClasses}>Full Address{serviceCase ? ' (optional)' : ''}</label>
                       <textarea 
                         id="address"
                         rows="2"
@@ -356,6 +454,49 @@ const RegisterComplaint = () => {
                       />
                     </div>
 
+                    {serviceCase && (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                        {serviceCase.fields.map(field => (
+                          <div key={field.name} className={field.type === 'textarea' ? 'md:col-span-2' : ''}>
+                            <label htmlFor={field.name} className={labelClasses}>
+                              {field.label}{field.required ? '' : ' (optional)'}
+                            </label>
+                            {field.type === 'textarea' ? (
+                              <textarea
+                                id={field.name}
+                                rows="3"
+                                value={formData[field.name] ?? ''}
+                                onChange={handleInputChange}
+                                className={inputClasses}
+                              />
+                            ) : field.type === 'select' ? (
+                              <select
+                                id={field.name}
+                                className={selectClasses}
+                                onChange={handleInputChange}
+                                value={formData[field.name] ?? ''}
+                              >
+                                <option value="">Select</option>
+                                {field.options.map(option => (
+                                  <option key={option} value={option}>{option}</option>
+                                ))}
+                              </select>
+                            ) : (
+                              <input
+                                id={field.name}
+                                type={field.type === 'number' ? 'number' : 'text'}
+                                min={field.type === 'number' ? 0 : undefined}
+                                value={formData[field.name] ?? ''}
+                                onChange={handleInputChange}
+                                className={inputClasses}
+                              />
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {!serviceCase && (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                       <div>
                         <label htmlFor="insuranceType" className={labelClasses}>Insurance Type</label>
@@ -389,8 +530,9 @@ const RegisterComplaint = () => {
                         </div>
                       )}
                     </div>
+                    )}
 
-                    {formData.insuranceType && (
+                    {!serviceCase && formData.insuranceType && (
                       <div>
                         <label htmlFor="complaintType" className={labelClasses}>Complaint Type</label>
                         <select 
@@ -408,7 +550,7 @@ const RegisterComplaint = () => {
                     )}
 
                     <div>
-                      <label htmlFor="message" className={labelClasses}>Complaint Details</label>
+                      <label htmlFor="message" className={labelClasses}>{serviceCase ? 'Anything else we should know?' : 'Complaint Details'}</label>
                       <textarea 
                         id="message"
                         rows="4"

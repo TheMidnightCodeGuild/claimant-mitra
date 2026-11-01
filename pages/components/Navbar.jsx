@@ -152,6 +152,30 @@ const Navbar = () => {
                   >
                     Know your policy
                   </Link>
+                  <Link
+                    href="/services/Loan-dispute"
+                    className="relative block py-2 px-4 hover:bg-[#1AC0D8] hover:text-white rounded-lg text-gray-900 font-medium text-sm transition-colors"
+                  >
+                    Loan Dispute
+                  </Link>
+                  <Link
+                    href="/services/Loan-settlement"
+                    className="relative block py-2 px-4 hover:bg-[#1AC0D8] hover:text-white rounded-lg text-gray-900 font-medium text-sm transition-colors"
+                  >
+                    Loan Settlement
+                  </Link>
+                  <Link
+                    href="/services/Credit-score"
+                    className="relative block py-2 px-4 hover:bg-[#1AC0D8] hover:text-white rounded-lg text-gray-900 font-medium text-sm transition-colors"
+                  >
+                    Credit Score
+                  </Link>
+                  <Link
+                    href="/services/Mailing-case"
+                    className="relative block py-2 px-4 hover:bg-[#1AC0D8] hover:text-white rounded-lg text-gray-900 font-medium text-sm transition-colors"
+                  >
+                    Mailing Case
+                  </Link>
                 </div>
               </div>
 
@@ -373,6 +397,34 @@ const Navbar = () => {
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       Know your policy
+                    </Link>
+                    <Link
+                      href="/services/Loan-dispute"
+                      className="block px-6 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Loan Dispute
+                    </Link>
+                    <Link
+                      href="/services/Loan-settlement"
+                      className="block px-6 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Loan Settlement
+                    </Link>
+                    <Link
+                      href="/services/Credit-score"
+                      className="block px-6 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Credit Score
+                    </Link>
+                    <Link
+                      href="/services/Mailing-case"
+                      className="block px-6 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Mailing Case
                     </Link>
                   </div>
                 </div>
